@@ -30,5 +30,29 @@ A continuación se describen muy brevemente algunas de las tareas que realizarem
 
 - Comprobar que podemos acceder a los servicios de Apache y phpMyAdmin desde un navegador web.
 
+### 2. Requisitos del archivo Dockerfile
+
+Tendremos que crear un archivo Dockerfile con los siguientes requisitos:
+
+- Como imagen base utilizaremos la versión de ubuntu que está etiquetada como focal.
+
+- Instalaremos el software necesario para poder ejecutar el servicio de Apache y servir una aplicación web escrita en PHP que hace uso de una base de datos MySQL.
+
+- **Importante:** Para realizar la instalación de los paquetes será necesario configurar la variable de entorno "DEBIAN_FRONTEND" con el valor "noninteractive".
+
+    Ejemplo:
+    ~~~
+    ENV DEBIAN_FRONTEND=noninteractive 
+    ~~~
+
+- Deberemos copiar el código de la aplicación web en el directorio **/var/www/html**, que es el directorio que utiliza Apache para servir el contenido. La aplicación web está en el siguiente repositorio de GitHub:
+    
+    **https://github.com/josejuansanchez/iaw-practica-lamp**
+
+- **Importante:** Tendremos que modificar el archivo de configuración "config.php" y sustituir el nombre de localhost por el nombre del servicio donde se estará ejecutando el servicio de MySQL.
+
+- **Importante:** Apache está configurado por defecto para darle prioridad al archivo "index.html", sin embargo, el archivo principal de la web se llama "index.php".
+
+- El puerto que usará la imagen para ejecutar el servicio de Apache será el puerto 80.
 
 
