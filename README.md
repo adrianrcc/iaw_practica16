@@ -18,11 +18,4 @@ En esta práctica tendremos que crear un archivo Dockerfile para crear una image
 
 ### 1. Tareas a realizar
 
--
 
--
--
--
--
--
-# TRABAJANDO
