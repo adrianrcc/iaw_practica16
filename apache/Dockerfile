@@ -9,13 +9,13 @@ ENV TZ=Europe/Madrid
 
 # INSTALACIÓN DE APACHE, PHP Y LIBRERÍAS
 RUN apt-get update \ 
-    && apt-get install -y apache2 \
-    && apt-get install -y php \
-    && apt-get install -y libapache2-mod-php \
-    && apt-get install -y php-mysql
+    && apt-get install -y --no-install-recommends apt-utils apache2 \
+    && apt-get install -y --no-install-recommends apt-utils php \
+    && apt-get install -y --no-install-recommends apt-utils libapache2-mod-php \
+    && apt-get install -y --no-install-recommends apt-utils php-mysql
 
 # INSTALACIÓN DE GIT, DESCARGA APLICACIÓN WEB, MODIFICAMOS CONFIG.PHP Y BORRAMOS INDEX.HTML
-RUN apt install git -y \
+RUN apt install git -y --no-install-recommends apt-utils \
     && git clone https://github.com/josejuansanchez/iaw-practica-lamp \
     && mv /iaw-practica-lamp/src/* /var/www/html/ \
     && sed -i 's/localhost/mysql/' /var/www/html/config.php \
