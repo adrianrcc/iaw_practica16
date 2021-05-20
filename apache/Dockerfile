@@ -1,6 +1,9 @@
 FROM ubuntu:focal
 
-LABEL 
+LABEL title="LAMP"
+
+# VARIABLES DE ENTORNO
+ENV DEBIAN_FRONTEND=noninteractive 
 
 RUN 
 

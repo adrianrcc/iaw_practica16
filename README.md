@@ -55,4 +55,59 @@ Tendremos que crear un archivo Dockerfile con los siguientes requisitos:
 
 - El puerto que usará la imagen para ejecutar el servicio de Apache será el puerto 80.
 
+### 3 Requisitos del archivo docker-compose.yml
 
+#### 3.1 Servicio de MySQL
+
+- Utilizaremos la última versión de la imagen de MySQL disponible en Docker Hub.
+
+- **Importante:** Para poder configurar la contraseña del usuario root mediante variables de entorno con la última versión de MySQL, debemos iniciar el servicio con el siguiente modificador: **--default-authentication-plugin=mysql_native_password**
+
+    ~~~
+    services:
+      mysql:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+    ~~~
+
+- **Importante:** La imagen oficial de MySQL está preparada para permitirnos importar un script SQL con la base de datos inicial de nuestra aplicación. 
+
+- Para importar la base de datos de la aplicación web crearemos un volumen de tipo bind mount entre el directorio de su máquina local donde está el script SQL y el directorio **"/docker-entrypoint-initdb.d"** de la imagen oficial de MySQL. 
+
+    Esto hará que la primera vez que se instancie la base de datos leerá todos los archivos con extensión .sql que estén en este directorio y se ejecutarán.
+
+    A continuación se muestra un ejemplo de cómo tendría que hacerlo en el archivo docker-compose.yml:
+
+    ~~~
+        volumes:
+          - mysql_data:/var/lib/mysql
+          - ./sql:/docker-entrypoint-initdb.d 
+    ~~~
+
+### 4 Networks
+
+Los servicios definidos en el archivo docker-compose.yml usan dos redes:
+
+- frontend-network
+- backend-network
+
+Los servicios Apache y phpMyAdmin se conectan con el servicio MySQL a través de la red backend-network. Nosotros nos conectamos a los servicios Apache y phpMyAdmin a través de la red frontend-network a través de los puertos 80 y 8080 respectivamente. Sólo los servicios que están en la red frontend-network expondrán sus puertos en el host. Por lo tanto, el servicio de MySQL no deberá estar accesible desde el host.
+
+### 5 Docker restart policies
+
+Usamos una política de reinicio para que los contenedores se reinicien cada vez que se detengan de forma inesperada.
+
+~~~
+restart: always
+~~~
+
+### 6 Orden en el que se inician los servicios
+
+"depends_on" expresa la dependencia entre los servicios, es decir, "docker-compose up" iniciará los servicios en orden de dependencia. 
+
+~~~
+depends_on: 
+      - mysql
+~~~
+
+**Nota**: depends_on no esperará a que mysql esté "listo" antes de iniciar phpMyAdmin y Apache, sólo hasta que se hayan iniciado. 
