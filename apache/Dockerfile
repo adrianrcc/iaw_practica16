@@ -27,6 +27,6 @@ EXPOSE 80
 
 # Docker ejecutará el comando usando el ENTRYPOINT por defecto, que es /bin/sh -c. Link: https://docs.docker.com/engine/reference/builder/#cmd
 # El comando "/usr/sbin/apache2ctl" se usa para controlar la interfaz del servidor HTTP de Apache. Ejemplo: https://hub.docker.com/r/eboraas/apache/dockerfile/
-# FOREGROUND significa que el proceso se lleva a cabo en primer plano.
-# 
+# "-D" para modo detached.
+# "FOREGROUND" para que el proceso se lleve a cabo en primer plano.
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
