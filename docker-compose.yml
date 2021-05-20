@@ -47,7 +47,6 @@ services:
 
 volumes:
   mysql_data:
-  wordpress_data:
 
 networks: 
   frontend-network:
