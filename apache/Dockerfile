@@ -20,4 +20,8 @@ RUN apt install git -y \
     && sed -i 's/localhost/mysql/' /var/www/html/config.php \
     && rm /var/www/html/index.html
 
-CMD []
+# EXPONEMOS EL PUERTO 80
+EXPOSE 80
+
+# INDICAMOS EL COMANDO QUE SE EJECUTA PARA CREAR EL CONTENEDOR Y NO PERMITIMOS EJECUTAR NINGÚN OTRO COMANDO DURANTE LA CREACIÓN
+ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
