@@ -9,12 +9,13 @@ services:
     networks: 
       - backend-network
     environment: 
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=wp_database
-      - MYSQL_USER=wp_user
-      - MYSQL_PASSWORD=wp_password
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes: 
       - mysql_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
     restart: always
   
   phpmyadmin:
@@ -30,21 +31,15 @@ services:
       - mysql
     restart: always
   
-  wordpress:
-    image: wordpress
+  apache:
+    build: ./apache
     ports: 
       - 80:80
     networks:
       - frontend-network 
       - backend-network
-    environment: 
-      - WORDPRESS_DB_NAME=wp_database
-      - WORDPRESS_DB_USER=wp_user
-      - WORDPRESS_DB_PASSWORD=wp_password
     depends_on: 
       - mysql
-    volumes: 
-      - wordpress_data:/var/www/html
     restart: always
 
 volumes:
