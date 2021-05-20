@@ -4,7 +4,8 @@ FROM ubuntu:focal
 LABEL title="apache&php"
 
 # VARIABLES DE ENTORNO
-ENV DEBIAN_FRONTEND=noninteractive 
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Madrid
 
 # INSTALACIÓN DE APACHE, PHP Y LIBRERÍAS
 RUN apt-get update \ 
