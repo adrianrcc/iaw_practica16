@@ -4,6 +4,7 @@ FROM ubuntu:focal
 LABEL title="apache&php"
 
 # VARIABLES DE ENTORNO
+# "DEBIAN_FRONTEND=noninteractive" nos impide interactuar con el proceso.
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Madrid
 
@@ -24,7 +25,7 @@ RUN apt install git -y \
 # EXPONEMOS EL PUERTO 80
 EXPOSE 80
 
-# "Docker ejecutará el comando usando el ENTRYPOINT por defecto, que es /bin/sh -c" Link: https://programacionymas.com/blog/docker-diferencia-entrypoint-cmd
+# Docker ejecutará el comando usando el ENTRYPOINT por defecto, que es /bin/sh -c. Link: https://docs.docker.com/engine/reference/builder/#cmd
 # El comando "/usr/sbin/apache2ctl" se usa para controlar la interfaz del servidor HTTP de Apache. Ejemplo: https://hub.docker.com/r/eboraas/apache/dockerfile/
 # FOREGROUND significa que el proceso se lleva a cabo en primer plano.
 # 
