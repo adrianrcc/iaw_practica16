@@ -1,7 +1,8 @@
 # IMAGEN BASE
 FROM ubuntu:focal
 
-LABEL title="apache&php"
+LABEL title="apache&php" \
+    author="adrianrcc"
 
 # VARIABLES DE ENTORNO
 # "DEBIAN_FRONTEND=noninteractive" nos impide interactuar con el proceso.
