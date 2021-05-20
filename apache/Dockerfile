@@ -24,5 +24,8 @@ RUN apt install git -y \
 # EXPONEMOS EL PUERTO 80
 EXPOSE 80
 
-# INDICAMOS EL COMANDO QUE SE EJECUTA PARA CREAR EL CONTENEDOR Y NO PERMITIMOS EJECUTAR NINGÚN OTRO COMANDO DURANTE LA CREACIÓN
+# "Docker ejecutará el comando usando el ENTRYPOINT por defecto, que es /bin/sh -c" Link: https://programacionymas.com/blog/docker-diferencia-entrypoint-cmd
+# El comando "/usr/sbin/apache2ctl" se usa para controlar la interfaz del servidor HTTP de Apache. Ejemplo: https://hub.docker.com/r/eboraas/apache/dockerfile/
+# FOREGROUND significa que el proceso se lleva a cabo en primer plano.
+# 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
