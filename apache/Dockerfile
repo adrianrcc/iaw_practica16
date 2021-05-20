@@ -10,6 +10,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Madrid
 
 # INSTALACIÓN DE APACHE, PHP Y LIBRERÍAS
+# Realizamos la instalación en dos capas para poder reutilizarlas.
 RUN apt-get update \ 
     && apt-get install -y apache2 \
     && apt-get install -y php \
