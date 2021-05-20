@@ -1,5 +1,7 @@
 version: '3.4'
 
+# En esta práctica sí usamos variables que están configuradas en el archivo .env
+# El volumen "sql" es el que contiene la base de datos que se importará automáticamente al crear el contenedor.
 services:
   mysql:
     image: mysql
@@ -30,7 +32,8 @@ services:
     depends_on: 
       - mysql
     restart: always
-  
+
+# Usamos "build" en lugar de "image" ya que creamos nuestro propio contenedor
   apache:
     build: ./apache
     ports: 
