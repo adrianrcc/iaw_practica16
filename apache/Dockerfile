@@ -5,7 +5,7 @@ LABEL title="apache&php" \
     author="adrianrcc"
 
 # VARIABLES DE ENTORNO
-# "DEBIAN_FRONTEND=noninteractive" nos impide interactuar con el proceso.
+# "DEBIAN_FRONTEND=noninteractive" para que la instalación sea desatendida.
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Madrid
 
@@ -29,6 +29,4 @@ EXPOSE 80
 
 # Docker ejecutará el comando usando el ENTRYPOINT por defecto, que es /bin/sh -c. Link: https://docs.docker.com/engine/reference/builder/#cmd
 # El comando "/usr/sbin/apache2ctl" se usa para controlar la interfaz del servidor HTTP de Apache. Ejemplo: https://hub.docker.com/r/eboraas/apache/dockerfile/
-# "-D" para modo detached.
-# "FOREGROUND" para que el proceso se lleve a cabo en primer plano.
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
